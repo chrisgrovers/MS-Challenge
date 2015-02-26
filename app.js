@@ -31,40 +31,60 @@ $(document).ready(function() {
 		updateHTML();
 	}
 
+	function newUpdateInventory(inventory, name, amt, htmlVal){
+		inventory[name]+=amt;
+		newUpdateHTML(inventory, htmlVal);
+	};
+	// TODO: make updateHTML less sluggish (not update all html values, only target value)
+	function newUpdateHTML(inventory, htmlVal){
+		$(htmlVal).html(inventory);
+	};
+
 	//click on use sugar
 	$(".use-sugar").click(function(){
 		if (inventory.ingredients.sugar>0){
-			updateInventory(inventory.ingredients, 'sugar', -1);
-			updateInventory(inventory.pot, 'sugar', 1);
+			newUpdateInventory(inventory.ingredients, 'sugar', -1, '#ingredients .sugar');
+			newUpdateInventory(inventory.pot, 'sugar', 1, '#pot .sugar');
+			// updateInventory(inventory.ingredients, 'sugar', -1);
+			// updateInventory(inventory.pot, 'sugar', 1);
 		}
 	});
 	//click on use flour
 	$('.use-flour').click(function(){
 		if(inventory.ingredients.flour>0){
-			updateInventory(inventory.ingredients, 'flour', -1);
-			updateInventory(inventory.pot, 'flour', 1);
+			newUpdateInventory(inventory.ingredients, 'flour', -1, '#ingredients .flour');
+			newUpdateInventory(inventory.pot, 'flour', 1, '#pot .flour');
+			// updateInventory(inventory.ingredients, 'flour', -1);
+			// updateInventory(inventory.pot, 'flour', 1);
 		}
 	});
 	//click on make cookie
 	$('#pot button').click(function(){
 		if (inventory.pot.flour>=6 && inventory.pot.sugar>=3){
-			updateInventory(inventory.pot, 'flour', -6);
-			updateInventory(inventory.pot, 'sugar', -3);
-			updateInventory(inventory.product, 'cookies', 1);
+			newUpdateInventory(inventory.pot, 'flour', -6, '#pot .flour');
+			newUpdateInventory(inventory.pot, 'sugar', -3, '#pot .sugar');
+			newUpdateInventory(inventory.product, 'cookies', 1, '#product .cookies');
+			// updateInventory(inventory.pot, 'flour', -6);
+			// updateInventory(inventory.pot, 'sugar', -3);
+			// updateInventory(inventory.product, 'cookies', 1);
 		}
 	});
 	// buy sugar for $10
 	$('.buy-sugar').click(function(){
 		if (inventory.product.money >=15){
-			updateInventory(inventory.product, 'money', -10);
-			updateInventory(inventory.ingredients, 'sugar', 1);
+			newUpdateInventory(inventory.product, 'money', -10, '#product .money');
+			newUpdateInventory(inventory.ingredients, 'sugar', 1, '#ingredients .sugar');
+			// updateInventory(inventory.product, 'money', -10);
+			// updateInventory(inventory.ingredients, 'sugar', 1);
 		}
 	})
 	// buy flour for $15
 	$('.buy-flour').click(function(){
 		if (inventory.product.money >=15) {
-			updateInventory(inventory.product, 'money', -15);
-			updateInventory(inventory.ingredients, 'flour', 1);
+			newUpdateInventory(inventory.product, 'money', -15, '#product .money');
+			newUpdateInventory(inventory.ingredients, 'flour', 1, '#ingredients .flour');
+			// updateInventory(inventory.product, 'money', -15);
+			// updateInventory(inventory.ingredients, 'flour', 1);
 		}
 	})
 
